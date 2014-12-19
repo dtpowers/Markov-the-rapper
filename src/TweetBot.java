@@ -27,6 +27,15 @@ public class TweetBot {
 	
 	}
 	public static String generateTweetTxt(){
+		//start by randomly selecting a first word
+		String tweet = getRandomWord(wordMap);
+		//current word, used to get next word.
+		String currWord = tweet;
+		int tweetLen = 0;
+		//until tweet is max len keep picking words
+		while(tweetLen < 140){
+			
+		}
 		return null;
 	}
 
