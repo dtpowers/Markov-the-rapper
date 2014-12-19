@@ -23,7 +23,7 @@ public class Markov {
 		while (line != null) {
 			String[] words = line.split(" ");
 			// create list of words
-
+			
 			for (int i = 0; i < words.length - 1; i++) {
 				// if the word is already in the map, add next word to list
 				if (result.containsKey(words[i])) {
@@ -38,12 +38,14 @@ public class Markov {
 					values.add(TextFormater.formatText(words[i + 1]));
 					result.put(TextFormater.formatText(words[i]), values);
 				}
-
+				
 			}
 			// handle last word of line
+			if(words.length != 0){
 			ArrayList<String> values = new ArrayList<String>();
-			result.put(TextFormater.formatText(words[words.length]), values);
-
+			values.add(" ");
+			result.put(TextFormater.formatText(words[words.length-1]), values);
+			}
 			line = br.readLine();
 		}
 
