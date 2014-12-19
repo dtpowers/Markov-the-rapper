@@ -9,7 +9,7 @@ public class main {
 	
 
 	public static void main(String[] args) throws IOException {
-		
+		//this bot is @MarkovRapBot
 		TweetBot MarkOF = new TweetBot("rap.txt");
 		
 		}
