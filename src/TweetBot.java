@@ -31,12 +31,25 @@ public class TweetBot {
 		String tweet = getRandomWord(wordMap);
 		//current word, used to get next word.
 		String currWord = tweet;
+		String nextWord;
 		int tweetLen = 0;
+		Random randGen = new Random();
+		boolean isDone = false;
 		//until tweet is max len keep picking words
-		while(tweetLen < 140){
+		while(isDone){
+			int rand = randGen.nextInt(wordMap.get(currWord).size());
+			nextWord = wordMap.get(currWord).get(rand);
+			tweetLen += nextWord.length();
+			if(tweetLen > 140){
+				isDone = true;
+			}
+			else{
+				tweet += nextWord;
+				currWord = nextWord;
+			}
 			
 		}
-		return null;
+		return tweet;
 	}
 
 }
