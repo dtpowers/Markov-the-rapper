@@ -4,15 +4,42 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 
+import twitter4j.Twitter;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
+
 
 public class TweetBot {
 	public static HashMap<String, ArrayList<String>> wordMap;
 	public TweetBot(String sampleText) throws IOException {
 		wordMap = Markov.genWordTable(sampleText);
 		String tweetTxt = generateTweetTxt();
+		Twitter twitterBot = setup();
 		System.out.print(tweetTxt);
 	}
-	
+	public static Twitter setup(){
+		//configure bot settings
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setOAuthConsumerKey(getConsumerKey("consumerKey.txt"));
+		cb.setOAuthConsumerSecret(getConsumerKeySecret("consumerSec.txt"));
+		cb.setOAuthAccessToken(getToken("accessToke.txt"));
+		cb.setOAuthAccessTokenSecret(getTokenSec("accessTokeSec.txt"));
+		TwitterFactory tf = new TwitterFactory(cb.build());
+		Twitter twitter = tf.getInstance();
+		return twitter;
+	}
+	public static String getConsumerKey(String dir){
+		return null;
+	}
+	public static String getConsumerKeySecret(String dir){
+		return null;
+	}
+	public static String getToken(String dir){
+		return null;
+	}
+	public static String getTokenSec(String dir){
+		return null;
+	}
 	public static String getRandomWord(HashMap<String, ArrayList<String>> wordMap){
 		Set<String> words = wordMap.keySet();
 		int size = words.size();
