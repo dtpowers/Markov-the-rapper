@@ -39,7 +39,7 @@ public class TweetBot {
 		boolean isDone = false;
 		//until tweet is max len keep picking words
 		
-		while(!isDone && wordMap.get(currWord) != null){
+		while(tweet.length() < 140 && !isDone && wordMap.get(currWord) != null){
 			
 			int listSize = wordMap.get(currWord).size();
 			int rand = randGen.nextInt(listSize);

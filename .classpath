@@ -2,5 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_20"/>
+	<classpathentry kind="lib" path="twitter4j-async-4.0.2.jar"/>
+	<classpathentry kind="lib" path="twitter4j-core-4.0.2.jar"/>
+	<classpathentry kind="lib" path="twitter4j-examples-4.0.2.jar"/>
+	<classpathentry kind="lib" path="twitter4j-media-support-4.0.2.jar"/>
+	<classpathentry kind="lib" path="twitter4j-stream-4.0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
