@@ -18,8 +18,17 @@ public class TweetBot {
 		String tweetTxt = generateTweetTxt();
 		Twitter twitterBot = setup();
 		System.out.print(tweetTxt);
+		followBack(twitterBot);
+		postTweet(twitterBot);
+		
 	}
-	public static Twitter setup(){
+	public static void followBack(Twitter bot){
+		
+	}
+	public static void postTweet(Twitter bot){
+		
+	}
+	public static Twitter setup() throws IOException{
 		//configure bot settings
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setOAuthConsumerKey(getConsumerKey("consumerKey.txt"));
