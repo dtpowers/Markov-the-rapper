@@ -6,22 +6,23 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 
+import twitter4j.IDs;
 import twitter4j.Twitter;
+import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class TweetBot {
 	public static HashMap<String, ArrayList<String>> wordMap;
 
-	public TweetBot(String sampleText) throws IOException, InterruptedException {
+	public TweetBot(String sampleText) throws IOException, InterruptedException, TwitterException {
 		wordMap = Markov.genWordTable(sampleText);
 		Twitter twitterBot = setup();
 		run(twitterBot);
-		
 
 	}
 
-	public static void run(Twitter bot) throws InterruptedException {
+	public static void run(Twitter bot) throws InterruptedException, TwitterException {
 		while (true) {
 			followBack(bot);
 			postTweet(bot);
@@ -29,13 +30,27 @@ public class TweetBot {
 		}
 	}
 
-	public static void followBack(Twitter bot) {
-
+	public static void followBack(Twitter bot) throws TwitterException {
+		IDs followers = bot.getFollowersIDs(-1);
+		for(long id: followers.getIDs()){
+			bot.createFriendship(id);
+		}
+		
 	}
 
-	public static void postTweet(Twitter bot) {
+	public static void postTweet(Twitter bot) throws TwitterException {
+		boolean isPostable = false;
 		String tweetTxt = generateTweetTxt();
-		System.out.print(tweetTxt);
+		while (!isPostable) {
+			// ensure tweet can be posted before trying to post
+			tweetTxt = generateTweetTxt();
+			//System.out.print(tweetTxt);
+			if (tweetTxt.length() > 15 && tweetTxt.length() < 140) {
+				isPostable = true;
+			}
+		}
+		bot.updateStatus(tweetTxt);
+		System.out.print("posted tweet " + tweetTxt);
 	}
 
 	public static Twitter setup() throws IOException {
