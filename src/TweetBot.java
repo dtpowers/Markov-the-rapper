@@ -15,25 +15,29 @@ import twitter4j.conf.ConfigurationBuilder;
 public class TweetBot {
 	public static HashMap<String, ArrayList<String>> wordMap;
 
-	public TweetBot(String sampleText) throws IOException, InterruptedException, TwitterException {
+	public TweetBot(String sampleText) throws IOException,
+			InterruptedException, TwitterException {
 		wordMap = Markov.genWordTable(sampleText);
 		Twitter twitterBot = setup();
 		run(twitterBot);
 
 	}
 
-	public static void run(Twitter bot) throws InterruptedException, TwitterException {
+	public static void run(Twitter bot) throws InterruptedException,
+			TwitterException {
 		while (true) {
-			followBack(bot);
 			postTweet(bot);
 			Thread.sleep(1000 * 60 * 15);
 		}
 	}
-
+	//not being used. not worth it
 	public static void followBack(Twitter bot) throws TwitterException {
 		IDs followers = bot.getFollowersIDs(-1);
 		for(long id: followers.getIDs()){
+			{
 			bot.createFriendship(id);
+			System.out.print("followed " + id + "\n");
+			}
 		}
 		
 	}
@@ -44,13 +48,13 @@ public class TweetBot {
 		while (!isPostable) {
 			// ensure tweet can be posted before trying to post
 			tweetTxt = generateTweetTxt();
-			//System.out.print(tweetTxt);
+			// System.out.print(tweetTxt);
 			if (tweetTxt.length() > 15 && tweetTxt.length() < 140) {
 				isPostable = true;
 			}
 		}
 		bot.updateStatus(tweetTxt);
-		System.out.print("posted tweet " + tweetTxt);
+		System.out.print("posted tweet " + tweetTxt + "\n");
 	}
 
 	public static Twitter setup() throws IOException {
