@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,17 +30,39 @@ public class TweetBot {
 		Twitter twitter = tf.getInstance();
 		return twitter;
 	}
-	public static String getConsumerKey(String dir){
-		return null;
+	public static String getConsumerKey(String dir) throws IOException{
+		File key = new File(dir);
+		String result = deserializeString(key);
+		return result;
 	}
-	public static String getConsumerKeySecret(String dir){
-		return null;
+	public static String getConsumerKeySecret(String dir) throws IOException{
+		File key = new File(dir);
+		String result = deserializeString(key);
+		return result;
 	}
-	public static String getToken(String dir){
-		return null;
+	public static String getToken(String dir) throws IOException{
+		File key = new File(dir);
+		String result = deserializeString(key);
+		return result;
 	}
-	public static String getTokenSec(String dir){
-		return null;
+	public static String getTokenSec(String dir) throws IOException{
+		File key = new File(dir);
+		String result = deserializeString(key);
+		return result;
+	}
+	public static String deserializeString(File file) throws IOException {
+		int len;
+		char[] chr = new char[4096];
+		final StringBuffer buffer = new StringBuffer();
+		final FileReader reader = new FileReader(file);
+		try {
+			while ((len = reader.read(chr)) > 0) {
+				buffer.append(chr, 0, len);
+			}
+		} finally {
+			reader.close();
+		}
+		return buffer.toString();
 	}
 	public static String getRandomWord(HashMap<String, ArrayList<String>> wordMap){
 		Set<String> words = wordMap.keySet();
